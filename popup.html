@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Popup with Triangle and Exclamation Point</title>
+<style>
+  .overlay {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+  }
+
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    text-align: center;
+  }
+
+  .triangle {
+    width: 0;
+    height: 0;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-bottom: 200px solid red;
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .exclamation {
+    color: white;
+    font-size: 100px;
+    font-weight: bold;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .popup-text {
+    display: block;
+    position: relative;
+    z-index: 10;
+    font-size: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="overlay" id="popupOverlay">
+  <div class="popup">
+    <div class="triangle">
+      <div class="exclamation">!</div>
+    </div>
+    <span class="popup-text">Useless</span>
+  </div>
+</div>
+
+<button id="popupButton">Click to Show Popup</button>
+
+<script>
+  document.getElementById('popupButton').onclick = function() {
+    document.getElementById('popupOverlay').style.display = 'block';
+  };
+</script>
+
+</body>
+</html>
