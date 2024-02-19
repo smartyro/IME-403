@@ -1,1 +1,22 @@
 
+{
+	"manifest_version": 2,
+	"name": "Wallet Watchdog",
+	"version": "1.0",
+	"author": " ",
+	"description": "Helps you understand your spending!",
+	"homepage_url": "https://github.com/smartyro/IME-403",
+	"permissions": [
+		"tabs",
+		"notifications",
+	],
+	"background": {
+		"scripts": [
+			"js/background.js"
+		]
+	},
+	"options_ui": {
+		"page": "settings.html",
+		"open_in_tab": true
+	  }
+}
