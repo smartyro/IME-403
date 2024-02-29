@@ -1,5 +1,5 @@
-// background.js
-chrome.runtime.onInstalled.addListener(() => {
-    console.log('Amazon Product Alert extension installed.');
-  });
-  
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.action === "closeTab") {
+    chrome.tabs.remove(sender.tab.id);
+  }
+});
