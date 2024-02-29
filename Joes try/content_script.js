@@ -1,33 +1,52 @@
-function checkForPaymentFields() {
-    // List of possible selectors for payment fields
-    const selectors = [
-        'input[name*="card"]', // Matches any input name containing 'card'
-        'input[name*="cvv"]', // Matches any input name containing 'cvv'
-        'input[name*="credit"]', // Matches any input name containing 'credit'
-        'input[type="tel"]', // Often used for credit card numbers
-        // Add more selectors as needed based on common payment field names and types
-    ];
+// This function runs when the condition to show the overlay is met
+function showOverlay() {
+    const overlay = document.createElement('div');
+    overlay.setAttribute('style', `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 10000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        color: white;
+        font-size: 24px;
+    `);
   
-    // Check the document for these fields
-    for (let selector of selectors) {
-        if (document.querySelector(selector) !== null) {
-            return true;
+    const message = document.createElement('p');
+    message.textContent = 'Are you sure you want to make this purchase? Please wait...';
+  
+    const countdown = document.createElement('p');
+    let timeLeft = 300; // 5 minutes in seconds
+  
+    const updateCountdown = () => {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        countdown.textContent = `Time remaining: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        if (timeLeft <= 0) {
+            document.body.removeChild(overlay);
         }
-    }
+    };
   
-    return false;
+    updateCountdown();
+    const interval = setInterval(() => {
+        timeLeft--;
+        updateCountdown();
+    }, 1000);
+  
+    overlay.appendChild(message);
+    overlay.appendChild(countdown);
+  
+    document.body.appendChild(overlay);
   }
   
-  function showOverlayIfPaymentFieldDetected() {
-    if (checkForPaymentFields()) {
-        // Call your existing function to show the overlay
-        showOverlay();
-    } else {
-        // Optionally, check again after a delay in case the fields load dynamically
-        setTimeout(showOverlayIfPaymentFieldDetected, 1000); // Check again after 1 second
-    }
+  // Example condition check: Always true for demonstration purposes
+  // You can replace this with a more specific condition for when to show the overlay
+  if (true) {
+    showOverlay();
   }
-  
-  // Initially try to detect payment fields
-  showOverlayIfPaymentFieldDetected();
   
