@@ -69,46 +69,38 @@ function showCountdownOverlay(duration) {
 if (/\/gp\/cart|\/cart/.test(window.location.href)) {
     showCountdownOverlay(10); // Start the countdown from 10 seconds
 }
-// Event listener for handling "Delete" and "Remove" button clicks
 document.addEventListener('click', function(e) {
     let targetElement = e.target;
-    if (targetElement.matches('[type="submit"][value="Delete"], button[data-test-id="cart-remove-item"]')) {
+    let itemPriceText = "$0.00";
+    let itemPrice = 0;
+
+    // Check for Home Depot's "Remove" button based on the 'data-automation-id' attribute
+    if (targetElement.matches('button[data-automation-id="removeItem"]')) {
+        // Attempt to find the price element using 'data-automation-id' for the price
+        let priceElement = document.querySelector('p[data-automation-id="pricingScenariosTotalPriceAddedText"]');
+        
+        if (priceElement) {
+            itemPriceText = priceElement.textContent.trim();
+            itemPrice = parseFloat(itemPriceText.replace(/[^0-9.]+/g, ""));
+        }
+
+        // Perform actions if a valid item price is found
+        if (itemPrice > 0) {
+            updateTotalSavings(itemPrice);
+            // Display the overlay with congratulations message after a slight delay
+            setTimeout(() => showOverlay(`Congratulations! You saved ${itemPriceText} by removing this item from your cart.`, true), 1000);
+        }
+    } else if (targetElement.type === 'submit' && targetElement.value === 'Delete' ||
+               targetElement.closest('button[data-test-id="cart-remove-item"]')) {
+        // Handles Amazon, eBay, and Walmart buttons as previously defined
         let priceElement = targetElement.closest('.sc-list-item, .cart-bucket-lineitem')?.querySelector('.sc-product-price, .item-price');
         if (priceElement) {
-            let itemPriceText = priceElement.textContent.trim();
-            let itemPrice = parseFloat(itemPriceText.replace(/[^0-9.]+/g, ""));
+            itemPriceText = priceElement.textContent.trim();
+            itemPrice = parseFloat(itemPriceText.replace(/[^\d.]+/g, ""));
             updateTotalSavings(itemPrice);
             setTimeout(() => showOverlay(`Congratulations! You saved ${itemPriceText} by removing this item from your cart.`, true), 1000);
         }
     }
-});
-
-document.addEventListener('click', function(e) {
-    let targetElement = e.target;
-    let itemPrice = 0;
-    let itemPriceText = "$0.00";
-
-    // Check for Walmart's "Remove" button
-    if (targetElement.classList.contains('w_hhLG') && targetElement.textContent.trim() === "Remove") {
-        // Navigate the DOM to find the price element. Based on your HTML structure, the price is in a sibling's child.
-        let priceContainer = targetElement.closest('.flex.items-center.mv2.ml-auto').previousElementSibling; // Navigate up to the common parent
-        let priceElement = priceContainer.querySelector('.f5.lh-copy.h2-l.f4-l.lh-title-l.b.black.tr span');
-
-        if (priceElement) {
-            itemPriceText = priceElement.textContent.trim();
-            // Extract numeric value from the price string
-            itemPrice = parseFloat(itemPriceText.replace(/[^0-9.]+/g, ""));
-        }
-
-        if (itemPrice > 0) {
-            updateTotalSavings(itemPrice);
-            setTimeout(() => {
-                // Show the overlay with a close button specifically for this scenario
-                showOverlay(`Congratulations! You saved ${itemPriceText} by removing this item from your cart.`, true);
-            }, 1000);
-        }
-    }
-    // Include conditions for Amazon and eBay as previously defined
 });
 
 // Update total savings and log the updated amount
