@@ -93,14 +93,25 @@ if (/\/gp\/cart|\/cart/.test(window.location.href)) {
 
 document.addEventListener('click', function(e) {
     if (e.target.type === 'submit' && e.target.value === 'Delete') {
-        // Find the price element by traversing the DOM
         let parentElement = e.target.closest('.sc-list-item');
         let priceElement = parentElement ? parentElement.querySelector('.sc-product-price') : null;
-        let itemPrice = priceElement ? priceElement.textContent.trim() : '$0.00';
+        let itemPrice = priceElement ? parseFloat(priceElement.textContent.trim().replace('$', '')) : 0;
 
-        // Delay the overlay to allow for the deletion action to complete
+        // Assuming you have a function to update the saved amount
+        updateTotalSavings(itemPrice);
+
         setTimeout(function() {
-            showCongratulatoryOverlay(itemPrice);
-        }, 1000); // Adjust time as needed
+            showCongratulatoryOverlay(priceElement.textContent.trim());
+        }, 1000);
     }
 }, true);
+
+function updateTotalSavings(amount) {
+    chrome.storage.local.get(['totalSavings'], function(result) {
+        let totalSavings = result.totalSavings || 0;
+        totalSavings += amount;
+        chrome.storage.local.set({'totalSavings': totalSavings}, function() {
+            console.log('Total savings updated: ', totalSavings);
+        });
+    });
+}
