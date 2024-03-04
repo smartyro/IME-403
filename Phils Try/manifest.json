@@ -1,13 +1,16 @@
 {
-  "name": "Your Extension Name",
+  "name": "WalletWatchdog",
   "version": "1.0",
   "description": "Describe your extension here.",
-  "permissions": ["activeTab"],
+  "permissions": ["activeTab", "storage"],
   "content_scripts": [
     {
       "matches": ["*://www.amazon.com/*"],
       "js": ["content_script.js"]
     }
   ],
-  "manifest_version": 3
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "popup.html"
+  }
 }
