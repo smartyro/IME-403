@@ -1,0 +1,13 @@
+{
+  "name": "Your Extension Name",
+  "version": "1.0",
+  "description": "Describe your extension here.",
+  "permissions": ["activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["*://www.amazon.com/*"],
+      "js": ["content_script.js"]
+    }
+  ],
+  "manifest_version": 3
+}
