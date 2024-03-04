@@ -5,8 +5,9 @@
   "permissions": ["activeTab", "storage"],
   "content_scripts": [
     {
-      "matches": ["*://www.amazon.com/*"],
-      "js": ["content_script.js"]
+      "matches": ["*://*/*"],
+      "js": ["content_script.js"],
+      "run_at": "document_idle"
     }
   ],
   "manifest_version": 3,
