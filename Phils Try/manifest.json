@@ -13,5 +13,12 @@
   "manifest_version": 3,
   "action": {
     "default_popup": "popup.html"
+    "default_title": "Wallet Watchdog"
+    // need to add an image? 
+    // "default_icon": {              // optional
+    //  "16": "images/icon16.png",   // optional
+    //  "24": "images/icon24.png",   // optional
+    //  "32": "images/icon32.png"    // optional
+    // },
   }
 }
