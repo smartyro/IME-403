@@ -1,8 +1,8 @@
 {
   "name": "WalletWatchdog",
   "version": "1.0",
-  "description": "Describe your extension here.",
-  "permissions": ["activeTab", "storage"],
+  "description": "Money-saving application to curb impulse buying.",
+  "permissions": ["activeTab", "storage", "notifications"],
   "content_scripts": [
     {
       "matches": ["*://*/*"],
@@ -15,5 +15,8 @@
 		"default_icon": "resized-2-2.svg",
 		"default_popup": "popup.html",
 		"default_title": "Wallet Watchdog"
+	},
+   "browser_action": {
+		"default_icon": "resized-2-2.svg"
 	}
 }
