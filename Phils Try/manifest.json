@@ -10,12 +10,14 @@
       "run_at": "document_idle"
     }
   ],
+  "icons": {
+    "48": "snoopy48.png",
+    "128": "snoopy.png"
+  },
   "manifest_version": 3,
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Wallet Watchdog"
-  },
-   "browser_action": {
-    "default_icon": "img48.png"
+    "default_title": "Wallet Watchdog",
+    "default_icon": "snoopy.png"
   }
 }
