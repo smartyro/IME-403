@@ -66,16 +66,22 @@ function showCountdownOverlay(duration) {
 }
 
 // Show a purchase confirmation overlay if on a specific page
-if (/\/gp\/cart|\/cart/.test(window.location.href)) {
+if ((/\/gp\/cart|\/cart/.test(window.location.href)) ||
+    (/\/gp\/basket|\/basket/.test(window.location.href)) ||
+    (/\/gp\/bag|\/bag/.test(window.location.href))
+    ) {
     showCountdownOverlay(10); // Start the countdown from 10 seconds
 }
+
+
 document.addEventListener('click', function(e) {
     let targetElement = e.target;
     let itemPriceText = "$0.00";
     let itemPrice = 0;
-
+    
     // Check for Home Depot's "Remove" button based on the 'data-automation-id' attribute
-    if (targetElement.matches('button[data-automation-id="removeItem"]')) {
+    if ((targetElement.matches('button[data-automation-id="removeItem"]')) || (targetElement.matches('button[class*="Remove"]'))
+    || (targetElement.matches('button[data-at*="remove"]'))) {
         // Attempt to find the price element using 'data-automation-id' for the price
         let priceElement = document.querySelector('p[data-automation-id="pricingScenariosTotalPriceAddedText"]');
         
