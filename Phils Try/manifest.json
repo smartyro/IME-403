@@ -1,7 +1,7 @@
 {
   "name": "WalletWatchdog",
   "version": "1.0",
-  "description": "Money-saving application to curb impulse buying.",
+  "description": "Money-saving extension to curb impulse buying, and helping people reflect on their purchases...literally!",
   "permissions": ["activeTab", "storage", "notifications"],
   "content_scripts": [
     {
