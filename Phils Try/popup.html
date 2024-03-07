@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>My Savings</title>
     <style>
@@ -7,22 +8,44 @@
             width: 300px;
             padding: 20px;
             font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
+        #savingsContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         #savingsAmount {
             font-size: 20px;
             color: green;
             margin-top: 20px;
         }
+
+        #popupImage {
+            max-width: 100%;
+            margin-top: 20px;
+            order: -1;
+        }
+
         button {
             display: block;
             margin-top: 10px;
         }
     </style>
 </head>
+
 <body>
     <h2>Your Total Savings:</h2>
-    <div id="savingsAmount">$0.00</div>
+    <div id="savingsContainer">
+        <div id="savingsAmount">$0.00</div>
+    </div>
     <button id="resetSavings">Reset Savings</button>
+    <img id="popupImage" src="snoopy.png" alt="Popup Image">
     <script src="popup.js"></script>
 </body>
+
 </html>
